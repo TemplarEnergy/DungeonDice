@@ -25,6 +25,10 @@ struct ContentView: View {
     }
     @State private var resultMessage = ""
     
+    @State private var columns = [
+        GridItem(.adaptive(minimum: 102), spacing: 5)
+    ]
+    
     var body: some View {
         VStack {
             Text("Dungeon Dice")
@@ -40,20 +44,21 @@ struct ContentView: View {
             Spacer()
             Group {
                 
-                ForEach(Dice.allCases, id: \.self) { die in
-                    Button("\(die.rawValue)-sided"){
-                        resultMessage = "You have rolled a \(die.roll()) on a \(die.rawValue) sided dice"
+                LazyVGrid(columns: columns, spacing:20 ) {
+                    ForEach(Dice.allCases, id: \.self) { die in
+                        Button("\(die.rawValue)-sided"){
+                            resultMessage = "You rolled a \(die.roll()) on a \(die.rawValue) sided dice"
+                        }
                     }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.red)
                 }
             }
-                        .buttonStyle(.borderedProminent)
-                        .tint(.red)
-/
-            
         }
         .padding()
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
