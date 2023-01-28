@@ -11,6 +11,7 @@
 		4B1DEB852982F61A005F8348 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DEB842982F61A005F8348 /* ContentView.swift */; };
 		4B1DEB872982F61D005F8348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B1DEB862982F61D005F8348 /* Assets.xcassets */; };
 		4B1DEB8A2982F61D005F8348 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B1DEB892982F61D005F8348 /* Preview Assets.xcassets */; };
+		4BBA27BB2984B6AE0052EF0F /* ButtonLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA27BA2984B6AE0052EF0F /* ButtonLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		4B1DEB842982F61A005F8348 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4B1DEB862982F61D005F8348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B1DEB892982F61D005F8348 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4BBA27BA2984B6AE0052EF0F /* ButtonLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				4B1DEB822982F61A005F8348 /* DungeonDiceApp.swift */,
 				4B1DEB842982F61A005F8348 /* ContentView.swift */,
+				4BBA27BA2984B6AE0052EF0F /* ButtonLayout.swift */,
 				4B1DEB862982F61D005F8348 /* Assets.xcassets */,
 				4B1DEB882982F61D005F8348 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BBA27BB2984B6AE0052EF0F /* ButtonLayout.swift in Sources */,
 				4B1DEB852982F61A005F8348 /* ContentView.swift in Sources */,
 				4B1DEB832982F61A005F8348 /* DungeonDiceApp.swift in Sources */,
 			);
