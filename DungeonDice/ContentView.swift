@@ -24,38 +24,95 @@ struct ContentView: View {
         }
     }
     @State private var resultMessage = ""
+    @State private var buttonsLeftOver = 0  // # of buttons in a less-than full row
     
-    @State private var columns = [
-        GridItem(.adaptive(minimum: 102), spacing: 5)
-    ]
+    
+    
+    let horizontalPadding: CGFloat = 16
+    let spacing: CGFloat = 0 // between buttons
+    let buttonWidth: CGFloat = 102
+    
     
     var body: some View {
-        VStack {
-            Text("Dungeon Dice")
-                .foregroundColor(.red)
-                .fontWeight(.black)
-                .font(.largeTitle)
-            Spacer()
-            Text(resultMessage)
-                .font(.largeTitle)
-                .fontWeight(.medium)
-                .frame(height: 150)
-                .multilineTextAlignment(.center)
-            Spacer()
-            Group {
+        GeometryReader{ geo in
+            VStack {
                 
-                LazyVGrid(columns: columns, spacing:20 ) {
-                    ForEach(Dice.allCases, id: \.self) { die in
-                        Button("\(die.rawValue)-sided"){
-                            resultMessage = "You rolled a \(die.roll()) on a \(die.rawValue) sided dice"
+                titleView
+                
+                Spacer()
+                
+                resultMessageView
+                
+                Spacer()
+                Group {
+                    
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: buttonWidth), spacing: spacing) ] ) {
+                        ForEach(Dice.allCases.dropLast(buttonsLeftOver), id: \.self) { die in
+                            Button("\(die.rawValue)-sided"){
+                                resultMessage = "You rolled a \(die.roll()) on a \(die.rawValue) sided dice"
+                            }
+                            .frame(width: buttonWidth)
                         }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.red)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.red)
+                    
+                    HStack{
+                        ForEach(Dice.allCases.suffix(buttonsLeftOver), id: \.self)  {
+                            die in
+                            Button("\(die.rawValue)-sided"){
+                                resultMessage = "You rolled a \(die.roll()) on a \(die.rawValue) sided dice"
+                            }
+                            .frame(width: buttonWidth)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.red)
+                    }
+                    
+                    
                 }
             }
+            .padding()
+            .onChange(of: geo.size.width, perform: { NewValue in
+                arrangeGridItems(deviceWidth: geo.size.width)
+                    
+            })
+            .onAppear{
+                arrangeGridItems(deviceWidth: geo.size.width)
+                }
+            
         }
-        .padding()
+    }
+    
+    
+    func arrangeGridItems(deviceWidth: CGFloat) {
+        var screenWidth = deviceWidth - horizontalPadding * 2
+        // padding on both sides
+        if Dice.allCases.count > 1 {
+            screenWidth += spacing
+        }
+            // calculate numOfButtonsPerRos as an Int
+            let numberOfButtonsPerRow = Int(screenWidth) / Int(buttonWidth + spacing)
+            buttonsLeftOver = Dice.allCases.count % numberOfButtonsPerRow
+//            print("numberOfBUttonsPerRow = \(numberOfButtonsPerRow)")
+//            print("buttonsLeftOver = \(buttonsLeftOver)")
+    }
+}
+
+extension ContentView {
+    private var resultMessageView: some View {
+        Text(resultMessage)
+            .font(.largeTitle)
+            .fontWeight(.medium)
+            .frame(height: 150)
+            .multilineTextAlignment(.center)
+    }
+    
+    private var titleView: some View {
+        Text("Dungeon Dice")
+            .foregroundColor(.red)
+            .fontWeight(.black)
+            .font(.largeTitle)
     }
 }
 
